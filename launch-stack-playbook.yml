@@ -1,0 +1,28 @@
+---
+- name: Launch AWS CloudFormation stack.
+  hosts: "localhost"
+  connection: "local"
+  gather_facts: false
+
+  vars:
+    cf_stack_name: "sinatra-challenge"
+    cf_stack_region: "eu-west-1"
+
+  tasks:
+    - name: Create {{ cf_stack_name}} stack.
+      cloudformation:
+        stack_name: "{{ cf_stack_name }}"
+        region: "eu-west-1"
+        state: "present"
+        template: "aws/cloudformation/single-instance.yml"
+        template_parameters:
+          KeyName: "{{ cf_stack_name }}-{{ cf_stack_region }}" # SSH keypair must exist.
+          InstanceType: "m3.medium"
+          NetworkLocation: "0.0.0.0/0"
+        tags:
+          tool: "ansible"
+          env: "{{ cf_stack_name}}-stack"
+      register: cf_result
+
+    - name: Print out EC2 instance information.
+      debug: msg="{{ cf_result.stack_outputs }}"

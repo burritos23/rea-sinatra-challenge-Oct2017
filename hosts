@@ -1,0 +1,7 @@
+# sinatra-challenge inventory file.
+[sinatra-challenge]
+ec2-54-74-161-119.eu-west-1.compute.amazonaws.com
+
+[sinatra-challenge:vars]
+ansible_user                 = ec2-user
+host_key_checking            = False

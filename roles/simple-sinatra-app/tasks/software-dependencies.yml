@@ -1,0 +1,19 @@
+---
+- name: Install required packages.
+  yum: name={{ item }} state=latest
+  with_items:
+    - git
+    - ruby23
+
+- name: Make Ruby 2.3 the default.
+  alternatives:
+    name: ruby
+    path: /usr/bin/ruby2.3
+
+- name: Install required gems (as {{ app_user }}).
+  become_user: '{{ app_user }}'
+  gem: 
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - sinatra

@@ -1,0 +1,23 @@
+---
+- name: Deploy simple-sinatra-app
+  hosts: sinatra-challenge
+  remote_user: ec2-user
+  become: yes
+
+  vars:
+    apache_vhosts_filename: "vhosts.conf"
+    apache_vhosts_template: "proxy-vhosts.conf.j2"
+    apache_mods_disabled:
+      - ssl.load
+    app_user: sinatra-user
+
+  roles:
+    - geerlingguy.apache
+    - simple-sinatra-app
+
+  tasks:
+    - name: Disable NFS-related services
+      yum: name={{ item }} state=absent
+      with_items:
+        - portmap
+        - nfs-utils

@@ -1,0 +1,6 @@
+---
+# vars file for simple-sinatra-app
+app_name: "simple-sinatra-app"
+code_location: "/code/"
+gem_bin: "/home/{{ app_user }}/bin"
+rackup_local_port: 3000

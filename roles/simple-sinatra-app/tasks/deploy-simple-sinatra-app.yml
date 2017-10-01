@@ -1,0 +1,22 @@
+---
+- name: Create directory to hold code.
+  file:
+    path: '{{ code_location }}'
+    state: directory
+    mode: 0755
+    owner: '{{ app_user }}'
+
+- block:
+  - name: Fetch latest version of {{ app_name }} from remote git repo.
+    git:
+      repo: 'https://github.com/rea-cruitment/{{ app_name }}'
+      dest: '{{ code_location }}{{ app_name }}'
+
+  - name: Stop rackup server (this task may fail on first run).
+    shell: killall rackup
+    ignore_errors: yes
+
+  - name: Start {{ app_name }}
+    shell: cd {{ code_location }}{{ app_name }} && {{ gem_bin }}/rackup -p {{ rackup_local_port }} -D
+
+  become_user: '{{ app_user }}'

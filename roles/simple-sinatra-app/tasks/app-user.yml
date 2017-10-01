@@ -1,0 +1,4 @@
+---
+- user:
+    name: "{{ app_user }}"
+    comment: "Sinatra/Ruby app user"

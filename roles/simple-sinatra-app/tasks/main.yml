@@ -1,0 +1,5 @@
+---
+# tasks file for simple-sinatra-app
+- include: app-user.yml
+- include: software-dependencies.yml
+- include: deploy-simple-sinatra-app.yml
