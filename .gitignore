@@ -1,2 +1,2 @@
-aws/credentials/*
+aws/credentials/credentials_file
 *.retry

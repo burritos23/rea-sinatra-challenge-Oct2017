@@ -1,6 +1,8 @@
 # sinatra-challenge inventory file.
+
+# Update this with the instance IP or FQDN returned from the EC2 provisioning step.
 [sinatra-challenge]
-ec2-54-74-161-119.eu-west-1.compute.amazonaws.com
+ec2-54-75-220-131.eu-west-1.compute.amazonaws.com
 
 [sinatra-challenge:vars]
 ansible_user                 = ec2-user
